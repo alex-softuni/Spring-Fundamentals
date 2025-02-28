@@ -3,16 +3,14 @@ package app.User.Model;
 import app.Subscription.Model.Subscription;
 import app.Wallet.Model.Wallet;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@Builder
 @Getter
 @Setter
 @NoArgsConstructor
@@ -42,11 +40,11 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @Column
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
 
-    @Column
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Country country;
 
