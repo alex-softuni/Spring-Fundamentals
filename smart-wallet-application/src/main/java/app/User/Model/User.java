@@ -57,10 +57,10 @@ public class User {
     @Column(nullable = false)
     private LocalDateTime updatedOn;
 
-    @OneToMany(mappedBy = "owner")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "owner")
     private List<Wallet> wallets = new ArrayList<>();
 
-    @OneToMany(mappedBy = "owner")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "owner")
     private List<Subscription> subscriptions = new ArrayList<>();
 
 
