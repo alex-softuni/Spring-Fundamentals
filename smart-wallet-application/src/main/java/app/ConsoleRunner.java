@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
-import java.util.UUID;
 
 @Component
 public class ConsoleRunner implements CommandLineRunner {
@@ -26,13 +24,13 @@ public class ConsoleRunner implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 //        RegisterRequest registerRequest = RegisterRequest.builder()
-//                .username("stevie34")
+//                .username("stevie534")
 //                .password("stevie123")
 //                .country(Country.FRANCE)
 //                .build();
 //        userService.register(registerRequest);
 
-        walletService.topUp(UUID.fromString("98c1ef71-8bb6-4336-a108-4e4f9266bba3"), new BigDecimal("20.00"));
+     //   walletService.topUp(UUID.fromString("98c1ef71-8bb6-4336-a108-4e4f9266bba3"), new BigDecimal("20.00"));
 
 
     }

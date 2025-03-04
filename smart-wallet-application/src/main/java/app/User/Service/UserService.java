@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -82,5 +83,9 @@ public class UserService {
                 .updatedOn(now)
                 .country(registerRequest.getCountry())
                 .build();
+    }
+
+    public User getById(UUID id) {
+        return this.userRepository.findById(id).orElseThrow(() -> new DomainException("User not found"));
     }
 }
