@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -19,6 +20,15 @@ public class UserController {
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
+    }
+
+    @GetMapping
+    public ModelAndView getUsers() {
+
+        List<User> users = userService.getAllUsers();
+        ModelAndView modelAndView = new ModelAndView("users");
+        modelAndView.addObject("users", users);
+        return modelAndView;
     }
 
     @GetMapping("/{id}/profile")

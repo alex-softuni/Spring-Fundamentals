@@ -1,6 +1,7 @@
 package app.User.Service;
 
 import app.Exception.DomainException;
+import app.Subscription.Model.Subscription;
 import app.Subscription.Service.SubscriptionService;
 import app.User.Model.User;
 import app.User.Model.UserRole;
@@ -15,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -61,9 +63,9 @@ public class UserService {
 
         User user = InitializeUser(registerRequest);
 
-        this.userRepository.save(user);
         walletService.createNewWallet(user);
         subscriptionService.createDefaultSubscription(user);
+        this.userRepository.save(user);
 
         log.info("User created: %s".formatted(user.getUsername()));
 
@@ -87,5 +89,13 @@ public class UserService {
 
     public User getById(UUID id) {
         return this.userRepository.findById(id).orElseThrow(() -> new DomainException("User not found"));
+    }
+
+    public List<Subscription> getSubscriptionHistory() {
+        return this.userRepository.findById(UUID.fromString("c1d0d838-1655-4499-90ad-ea67b895845c")).get().getSubscriptions();
+    }
+
+    public List<User> getAllUsers() {
+        return this.userRepository.findAll();
     }
 }

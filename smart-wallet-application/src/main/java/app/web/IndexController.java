@@ -40,10 +40,16 @@ public class IndexController {
     @GetMapping("home")
     public ModelAndView getHomePage() {
         ModelAndView modelAndView = new ModelAndView("home");
-        User user = userService.getById(UUID.fromString("40642ef3-3a2c-4980-a587-d631530a69c1"));
+
+        User user = userService.getById(UUID.fromString("c1d0d838-1655-4499-90ad-ea67b895845c"));
         modelAndView.addObject("user", user);
 
         return modelAndView;
+    }
+
+    @GetMapping("reports")
+    public ModelAndView getReportsPage() {
+        return new ModelAndView("reports");
     }
 
 
