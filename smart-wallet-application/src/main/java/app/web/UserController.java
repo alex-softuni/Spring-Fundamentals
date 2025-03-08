@@ -1,15 +1,15 @@
 package app.web;
 
-import app.User.Model.User;
-import app.User.Service.UserService;
+import app.user.Model.User;
+import app.user.Service.UserService;
+import app.web.dto.EditProfileRequest;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -25,21 +25,28 @@ public class UserController {
     @GetMapping
     public ModelAndView getUsers() {
 
-        List<User> users = userService.getAllUsers();
-        ModelAndView modelAndView = new ModelAndView("users");
-        modelAndView.addObject("users", users);
-        return modelAndView;
+        return new ModelAndView("users").addObject("users", userService.getAllUsers());
     }
 
-    @GetMapping("/{id}/profile")
-    public ModelAndView getProfileMenu(@PathVariable UUID id) {
+    @GetMapping("/profile")
+    public ModelAndView getProfileMenu(@SessionAttribute("user_id") UUID userId) {
 
-        User user = userService.getById(id);
-
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("profile-menu");
-        modelAndView.addObject("user", user);
-
-        return modelAndView;
+        User user = userService.getById(userId);
+        return new ModelAndView("profile-menu").addObject("editProfileRequest", EditProfileRequest.builder().build());
     }
+
+    @PutMapping("/profile")
+    public ModelAndView editProfileMenu(@SessionAttribute("user_id") UUID userId, @Valid EditProfileRequest editProfileRequest, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            User user = userService.getById(userId);
+
+            return new ModelAndView("profile-menu").addObject("editProfileRequest", editProfileRequest).addObject("user", user);
+        }
+
+        userService.editUserProfile(userId,editProfileRequest);
+
+        return new ModelAndView("redirect:/home");
+    }
+
+
 }

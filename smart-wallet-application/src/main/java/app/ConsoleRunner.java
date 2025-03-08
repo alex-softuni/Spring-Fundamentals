@@ -1,10 +1,8 @@
 package app;
 
-import app.Transaction.Service.TransactionService;
-import app.User.Model.Country;
-import app.User.Service.UserService;
-import app.Wallet.Service.WalletService;
-import app.web.dto.RegisterRequest;
+import app.transaction.Service.TransactionService;
+import app.user.Service.UserService;
+import app.wallet.Service.WalletService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

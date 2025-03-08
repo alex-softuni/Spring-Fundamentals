@@ -1,6 +1,6 @@
 package app.web.dto;
 
-import app.User.Model.Country;
+import app.user.Model.Country;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Builder;
